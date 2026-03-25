@@ -9,11 +9,6 @@ seed = 0
 random.seed(seed)
 np.random.seed(seed)
 
-
-# =============================================================================
-# Label Encoding Utilities
-# =============================================================================
-
 def encode_labels(df: pd.DataFrame, col: str) -> tuple:
     """
     Encodes string labels in a column into numeric values.
@@ -31,10 +26,6 @@ def decode_labels(encoded: np.ndarray, le: LabelEncoder) -> np.ndarray:
     """
     return le.inverse_transform(encoded)
 
-
-# =============================================================================
-# Data Validation Utilities
-# =============================================================================
 
 def check_min_class_instances(df: pd.DataFrame, col: str, min_count: int = 3) -> pd.DataFrame:
     """
@@ -66,10 +57,6 @@ def validate_dataframe(df: pd.DataFrame, required_cols: list) -> bool:
     print(f"[Utils] DataFrame validation passed. Shape: {df.shape}")
     return True
 
-
-# =============================================================================
-# Output Utilities
-# =============================================================================
 
 def ensure_dir(path: str) -> None:
     """
