@@ -8,10 +8,6 @@ seed = 0
 random.seed(seed)
 np.random.seed(seed)
 
-# =============================================================================
-# Activity 6: Textual Data Representation — Convert text to numeric (TF-IDF)
-# =============================================================================
-
 # Global vectorizer instance — fit once, reuse for consistency
 tfidf_vectorizer = TfidfVectorizer(
     max_features=1000,  # Keep top 1000 features
