@@ -11,6 +11,6 @@ class Config:
     CLASS_COL = 'y2'
     GROUPED = 'y1'
 
-    # Data Path — switch dataset here without changing any other code
+    # Data Path — switch dataset
     DATA_PATH = 'data/AppGallery.csv'
     # DATA_PATH = 'data/Purchasing.csv'
