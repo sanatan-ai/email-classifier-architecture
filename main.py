@@ -21,11 +21,6 @@ seed = 0
 random.seed(seed)
 np.random.seed(seed)
 
-
-# =============================================================================
-# Pipeline Step Functions
-# =============================================================================
-
 def load_data() -> pd.DataFrame:
     """
     Load and select data from the configured dataset.
@@ -43,10 +38,8 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
       - Remove noise from text
       - Combine Ticket Summary + Interaction Content
     """
-    # Activity 2: Group by ticket ID
     df = de_duplication(df)
 
-    # Activity 3: Translate to English
     df[Config.TICKET_SUMMARY] = translate_to_en(
         df[Config.TICKET_SUMMARY].tolist()
     )
@@ -54,10 +47,8 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
         df[Config.INTERACTION_CONTENT].tolist()
     )
 
-    # Activity 4: Remove noise
     df = noise_remover(df)
 
-    # Activity 5: Combine text fields for classification
     df = combine_text_fields(df)
 
     return df
@@ -98,7 +89,7 @@ def perform_chained_modelling(data: Data, model_name: str) -> None:
     """
     Design Decision 1: Chained Multi-Output Classification.
     Evaluates one model instance against progressively combined
-    target variables: y2 → y2+y3 → y2+y3+y4.
+    target variables: y2 -> y2+y3 -> y2+y3+y4.
     """
     run_chained_model(data, model_name)
 
@@ -112,10 +103,6 @@ def perform_hierarchical_modelling(data: Data, df: pd.DataFrame,
     """
     run_hierarchical_model(data, df, model_name)
 
-
-# =============================================================================
-# Entry Point
-# =============================================================================
 
 if __name__ == '__main__':
 
@@ -144,37 +131,27 @@ if __name__ == '__main__':
     for col in Config.TYPE_COLS:
         print_class_distribution(df, col)
 
-    # ------------------------------------------------------------------
-    # STAGE 2: Embeddings (Activity 6)
-    # ------------------------------------------------------------------
+
     print("\n[Stage 2] Generating TF-IDF embeddings...")
     X, df = get_embeddings(df)
 
-    # ------------------------------------------------------------------
-    # STAGE 3: Data Object (Activities 7–8)
-    # ------------------------------------------------------------------
+
     print("\n[Stage 3] Building data object (class filtering + train/test split)...")
     data = get_data_object(X, df)
 
-    # ------------------------------------------------------------------
-    # STAGE 4: Standard Modelling (Activities 9–10)
-    # ------------------------------------------------------------------
+
     print("\n[Stage 4] Standard multi-label classification...")
 
     # Run all models
     run_all_models(data, df)
 
-    # ------------------------------------------------------------------
-    # STAGE 5: Design Decision 1 — Chained Multi-Output
-    # ------------------------------------------------------------------
+
     print("\n[Stage 5] Design Decision 1 — Chained Multi-Output Classification...")
 
     # Run all models
     run_all_chained_models(data)
 
-    # ------------------------------------------------------------------
-    # STAGE 6: Design Decision 2 — Hierarchical Modelling
-    # ------------------------------------------------------------------
+
     print("\n[Stage 6] Design Decision 2 — Hierarchical Modelling...")
 
     # Run all models
