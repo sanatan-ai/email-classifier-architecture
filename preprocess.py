@@ -27,15 +27,9 @@ NOISE_WORDS = [
     'we apologize for the inconvenience',
 ]
 
-
-# =============================================================================
-# Activity 1: Data Selection — Load data and drop irrelevant columns
-# =============================================================================
-
 def get_input_data() -> pd.DataFrame:
     """
-    Loads the dataset specified in Config.DATA_PATH.
-    To switch datasets, update Config.DATA_PATH only — no code changes needed.
+    Loads the dataset
     """
     df = pd.read_csv(Config.DATA_PATH, encoding='utf-8-sig')
 
@@ -73,10 +67,6 @@ def get_input_data() -> pd.DataFrame:
     return df
 
 
-# =============================================================================
-# Activity 2: Data Grouping — Group interactions by Ticket ID
-# =============================================================================
-
 def de_duplication(df: pd.DataFrame) -> pd.DataFrame:
     """
     Groups conversation interactions by Ticket ID.
@@ -102,10 +92,6 @@ def de_duplication(df: pd.DataFrame) -> pd.DataFrame:
     print(f"[De-duplication] After grouping by ticket: {len(df)} unique tickets")
     return df
 
-
-# =============================================================================
-# Activity 3: Multi-language Handling — Translate all text to English
-# =============================================================================
 
 def detect_language(text: str) -> str:
     """
@@ -138,10 +124,6 @@ def translate_to_en(texts: list) -> list:
     print(f"[Translation] Translated {len(translated)} records to English")
     return translated
 
-
-# =============================================================================
-# Activity 4: Noise Removal — Clean text data
-# =============================================================================
 
 def noise_remover(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -187,10 +169,6 @@ def noise_remover(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# =============================================================================
-# Activity 5: Multi-level Data Handling — Combine Summary + Content
-# =============================================================================
-
 def combine_text_fields(df: pd.DataFrame) -> pd.DataFrame:
     """
     Combines Ticket Summary and Interaction Content into a single
@@ -204,4 +182,3 @@ def combine_text_fields(df: pd.DataFrame) -> pd.DataFrame:
     )
     print(f"[Multi-level] Combined Ticket Summary + Interaction Content")
     return df
-#Methods related to data loading and all pre-processing steps will go here
